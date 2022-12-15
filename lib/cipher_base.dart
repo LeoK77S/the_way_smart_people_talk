@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 abstract class Cipher {
   String encrypt(String plaintext);
 
@@ -99,14 +101,17 @@ class CipherRadix extends Cipher {
   }
 }
 
-class CipherExpand extends Cipher {
+class CipherExpand extends CipherRadix {
   var encryptDict = <String, String>{};
   var decryptDict = <String, String>{};
 
-  Cipher cipher;
-
-  CipherExpand(String keys, String values, this.cipher, [sep = ',']) {
-    this.sep = sep;
+  CipherExpand(int radix, String values, [sep = ',', String keys = ''])
+      : super(radix, sep) {
+    keys = keys != ''
+        ? keys
+        : '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            .substring(0, radix);
+    log(keys);
     for (int i = 0; i < keys.length; i++) {
       encryptDict[keys[i]] = values[i];
       decryptDict[values[i]] = keys[i];
@@ -116,11 +121,11 @@ class CipherExpand extends Cipher {
   @override
   String encrypt(String plaintext) {
     String argot = '';
-    String argotSuper = cipher.encrypt(plaintext);
+    String argotSuper = super.encrypt(plaintext);
     encryptDict.forEach((key, value) {
       argotSuper = argotSuper.replaceAll(key, value);
     });
-    argot = argotSuper.replaceAll(cipher.sep, sep);
+    argot = argotSuper;
     return argot;
   }
 
@@ -130,8 +135,7 @@ class CipherExpand extends Cipher {
     decryptDict.forEach((key, value) {
       argot = argot.replaceAll(key, value);
     });
-    argot = argot.replaceAll(sep, cipher.sep);
-    plaintext = cipher.decrypt(argot);
+    plaintext = super.decrypt(argot);
     return plaintext;
   }
 }
