@@ -119,21 +119,12 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
             const Divider(),
-            RadioListTile(
-                value: CipherType.easy16,
-                title: Text(getCipherTypeDescription(CipherType.easy16)),
-                groupValue: _cipherType,
-                onChanged: cipherTypeRadioChanged),
-            RadioListTile(
-                value: CipherType.easyNhywzy,
-                title: Text(getCipherTypeDescription(CipherType.easyNhywzy)),
-                groupValue: _cipherType,
-                onChanged: cipherTypeRadioChanged),
-            RadioListTile(
-                value: CipherType.normalNhywzy,
-                title: Text(getCipherTypeDescription(CipherType.normalNhywzy)),
-                groupValue: _cipherType,
-                onChanged: cipherTypeRadioChanged),
+            for (var cipherType in CipherType.values)
+              RadioListTile(
+                  value: cipherType,
+                  title: Text(getCipherTypeDescription(cipherType)),
+                  groupValue: _cipherType,
+                  onChanged: cipherTypeRadioChanged),
           ],
         )),
       ),

@@ -45,8 +45,8 @@ String getCipherTypeDescription(CipherType cipherType) {
   switch (cipherType) {
     case CipherType.easy16:
       return '十六进制密码器(简单)';
-    case CipherType.easyAbaAba:
-      return '阿巴阿巴(简单)';
+    case CipherType.easyNhywzy:
+      return '你还要我怎样(简单)';
     case CipherType.normalNhywzy:
       return '你还要我怎样(普通)';
     // “君日本语本当上手”密码器(普通)
@@ -81,15 +81,4 @@ void setCipherByType(CipherType cipherType) {
       }
     });
   }
-```
-
-随后在[lib/home.dart](lib/home.dart)中的Drawer控件中添加相应的密码器按钮，可以在home中搜索“Drawer”或“请选择密码器类型：”定位到相应位置，然后添加一个RadioListTile到列表中。
-
-```dart
-请选择密码器类型：
-RadioListTile(
-    value: CipherType.normalJap,
-    title: Text(getCipherTypeDescription(CipherType.normalJap)),
-    groupValue: _cipherType,
-    onChanged: cipherTypeRadioChanged),
 ```
