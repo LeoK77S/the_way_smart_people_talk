@@ -3,6 +3,7 @@ import 'package:the_way_smart_people_talk/global.dart';
 import 'package:the_way_smart_people_talk/home.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   GlobalAppProfile.init()
       .then((value) => runApp(const TheWaySmartPeopleTalk()));
 }
